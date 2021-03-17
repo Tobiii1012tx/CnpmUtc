@@ -1,0 +1,25 @@
+Server : ExpressJs, MySql
+	 
+Client : ReactJs
+
+
+Document
+Tạo ứng dụng chat:
+Người dùng : Gửi tin nhắn, xóa tin nhắn của chính họ, rời nhóm
+Mod : Duyệt người tham gia nhóm, Xóa người ra khỏi nhóm (Không xóa mod,owner)
+Owner : AdminRole ==> full role (set user to mod)
+
+Design Database:
+		User (Id,Name,Status)
+		Group(Id,Code,Name,OwnerId,Status)
+		GroupUser(Id,UserId,GroupId,Name,AdminRoleId,Status)
+		GroupUserMessage(Id,GroupUserId,Message,ForUser,IsDeleted) (ForUser ==> 0: mọi người, !0 ==> Id của người đấy) chưa giải quyết vấn đề tag > 2 người && < tổng thành viên
+		AdminRole(Id,ActionName,ParentId)
+Description : 
+	      	User : thông tin người dùng 
+	     	Group : Thông tin nhóm
+	     	GroupUser : Thông tin của thành viên trong nhóm (n-n)
+	      	GroupUserMessage : Lưu trữ nội dung cuộc trò chuyện
+	      	AdminRole : Các quyền trong 1 group
+Class: 
+		Genarate from Database
