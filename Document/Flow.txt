@@ -1,11 +1,11 @@
 Client:
-	- React : 
+	- React : Cả team
 
 
 Socket.IO:
-
+	- Cả team
 
 
 Server:
-
+	-Cả team
 
