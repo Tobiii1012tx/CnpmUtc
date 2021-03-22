@@ -1,13 +1,5 @@
-Server : ExpressJs, MySql
-	 
-Client : ReactJs
 
 
-Document
-Tạo ứng dụng chat:
-Người dùng : Gửi tin nhắn, xóa tin nhắn của chính họ, rời nhóm
-Mod : Duyệt người tham gia nhóm, Xóa người ra khỏi nhóm (Không xóa mod,owner)
-Owner : AdminRole ==> full role (set user to mod)
 
 Design Database:
 		User (Id,Name,Status)
