@@ -22,6 +22,8 @@ export const Chat = () => {
   const [user, setUser] = useState(u);
   const [messages,setMessages] = useState([])
   const [users,setUsers] = useState([])
+
+  console.log(user)
   // const [name, setName] = useState('');
   // const [room, setRoom] = useState('');
   // const [users, setUsers] = useState('');
@@ -63,6 +65,8 @@ export const Chat = () => {
 //       socket.emit('sendMessage', message, () => setMessage(''));
 //     }
 //   }
+// cái coponent list tin nhắn đâu
+// cần thì mình truyền qua = props thoi, t thấy có cái global state bây tôi view ra là thành công rồi =)) k có time tìm chi tiết , ok 
     function ChooseGroup(groupId){
         const requestOptions = {
           method: 'POST',

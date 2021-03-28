@@ -16,12 +16,16 @@ export const Join = (props) => {
     fetch('http://localhost:5000/User/Login', requestOptions)
         .then(response => response.json())
         .then(data => {
+          // data là result trả về, thế cái trên alf cái call server (required đấy)
           if(data.length > 0) {
               console.log(data)
               props.history.push({pathname:"/chat",state:{user : data}});
           }
         });
   }
+  // Cái chat của t nó bay đâu r, 
+// Ông gửi ress là json giờ ô làm gì cho nó ra dl dl là gì
+// Kiểu giờ ô muốn lấy ra name của th usẻ thì ô làm gì data.Name, thế thôi à ,json là key value thôi mà =)), tôi nhớ là phải sang object =))) k cần nó là obj rồi, bật thử đoạn demo t xem, cái cht ý, ô có lưu usẻ ở đâu k global ý
 // empty dependency array means this effect will only run once (like componentDidMount in classes)
   return (
     <div className="joinOuterContainer">

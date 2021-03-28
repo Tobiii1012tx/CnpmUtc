@@ -4,7 +4,7 @@ import ReactEmoji from 'react-emoji'
 
 export const Message = (props) => {
     let isSentByCurrentUser = false;
-
+    // Bật mấy cái component truyềnuuserid xuống t xem phát
     if(props.userId == props.message.UserId) {
         isSentByCurrentUser = true
     }

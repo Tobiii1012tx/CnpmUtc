@@ -35,7 +35,7 @@ html{
     box-shadow: 0 4px 2px -2px #ccc;
 }
 
-.main .main-content .my-message .content p.message{
+.main .main-content .my-message .content .message{
     background:#3578E5;
     border-radius: 5px;
     margin-bottom:0px !important;
