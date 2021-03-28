@@ -1,0 +1,138 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+html{
+    font-size:14px;
+}
+.main{
+    height: 100vh;
+    padding:0px !important;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+.list-group .active{
+    background:#ccc;
+}
+
+.group-item:hover{
+  background:#ccc;
+}
+.action-item{
+    margin-top:5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.main .main-content{
+    overflow-y: scroll;
+    height: calc(100% - 100px);
+}
+
+.main .main-header{
+    height: 60px;
+    box-shadow: 0 4px 2px -2px #ccc;
+}
+
+.main .main-content .my-message .content p.message{
+    background:#3578E5;
+    border-radius: 5px;
+    margin-bottom:0px !important;
+}
+
+.main .main-content .my-message .content p.message::selection{
+    background:#ccc;
+}
+
+.main .main-content .my-message .content p.description{
+    text-align: end;
+    padding:0px;
+    margin:0px;
+}
+
+.main .main-content .other-message .content p.message{
+    background:#ccc;
+    border-radius: 5px;
+    margin-bottom:0px !important;
+}
+
+.main .main-content .other-message .content p.description{
+    text-align: start;
+    padding:0px;
+    margin:0px;
+}
+
+.main .main-bottom{
+    height:40px;
+}
+.main .main-bottom input{
+    height:40px !important;
+}
+
+.left{
+    height:100vh;
+    padding:0px;
+}
+.left .left-header{
+    min-height:90px;
+    margin-bottom:10px;
+    border-bottom: 1px solid #ccc;
+}
+.left .left-main{
+    height: calc(100% - 100px);
+    overflow-y: scroll;
+}
+
+
+.right{
+    height:100vh;
+    padding:0px;
+}
+.right .right-header{
+    height:60px;
+    box-shadow: 0 4px 2px -2px #ccc;
+}
+.right .right-header .title h5{
+    line-height:60px;
+}
+.right .right-main{
+    height: calc(100% - 80px);
+    overflow-y: scroll;
+}
+
+.right .right-main .user-title{
+    background:#3578E5;
+}
+.right .right-main .user-title button{
+    background:#3578E5;
+    color:#fff;
+}
+.user-detail{
+    border: 1px solid #ccc;
+}
+
+.user-detail:hover{
+    background :#ccc;
+}
+
+/* Customer scroll */
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
