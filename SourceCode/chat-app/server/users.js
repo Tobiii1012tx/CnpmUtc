@@ -1,29 +1,35 @@
 const users = [];
 
-const addUser = ({ id, name, room }) => {
-    name = name.trim().toLowerCase();
-    room = room.trim().toLowerCase();
-
-    const existingUser = users.find((user) => user.room === room && user.name === name);
-
-    if (!name || !room) return { error: 'Username and room are required.' };
-    if (existingUser) return { error: 'Username is taken.' };
-
-    const user = { id, name, room };
-
-    users.push(user);
-
-    return { user };
+const addUser = ({ id, room,socketId }) => {
+    room = room.trim();
+    const existingUser = users.filter((user) =>user.id === id);
+    // nếu không có trả về undefine
+    // chưa có 
+    if (existingUser.length == 0)
+    {
+        const user = { id, room,socketId };
+        users.push(user);
+        return [];
+    }
+    // có
+    else{
+        let index = users.findIndex((user) => user.room === room && user.id === id);
+        users.splice(index, 1)[0];
+        const user = { id, room,socketId };
+        users.push(user);
+        return existingUser;
+    }
 }
 
 const removeUser = (id) => {
-    const index = users.findIndex((user) => user.id === id);
-
-    if (index !== -1) return users.splice(index, 1)[0];
+    let index = users.findIndex((user) => user.id == id);
+    users.splice(index, 1);
+    return true;
 }
 
-const getUser = (id) => users.find((user) => user.id === id);
+const getUser = (socketId) => users.filter((user) => user.socketId === socketId)[0];
 
 const getUsersInRoom = (room) => users.filter((user) => user.room === room);
 
-module.exports = { addUser, removeUser, getUser, getUsersInRoom };
+const getUsers =() => users;
+module.exports = { addUser, removeUser, getUser, getUsersInRoom ,getUsers};

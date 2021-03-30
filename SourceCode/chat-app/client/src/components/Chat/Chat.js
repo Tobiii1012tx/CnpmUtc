@@ -1,95 +1,67 @@
 import React, { useState, useEffect } from "react";
-import { useHistory,useLocation } from 'react-router-dom';
-import queryString from 'query-string';
-import io from "socket.io-client";
+import {useLocation } from 'react-router-dom';
 
-
-import {InfoBar} from '../InfoBar/InfoBar';
-import {Input} from '../Input/Input';
 import {Messages} from '../Messages/Messages';
-import {TextContainer} from '../TextContainer/TextContainer'
-
 import {SideLeft} from '../SideLeft/sideleft';
 import {SideRight} from '../SideRight/sideright';
+// import { UserProvider } from '../Common/socket'
+
+// import io from "socket.io-client";
 
 import './Chat.css';
-
-let socket;
-
+// let socket;
 export const Chat = () => {
   const location = useLocation();
   let u = location.state.user[0];
   const [user, setUser] = useState(u);
-  const [messages,setMessages] = useState([])
-  const [users,setUsers] = useState([])
+  const [infoPage,setInfoPage] = useState({
+    users : [],
+    group : 0,
+    messages : []
+  })
 
-  console.log(user)
-  // const [name, setName] = useState('');
-  // const [room, setRoom] = useState('');
-  // const [users, setUsers] = useState('');
-  // const [message, setMessage] = useState('');
-  // const [messages, setMessages] = useState([]);
-  // const ENDPOINT = 'https://react-chat-page.herokuapp.com/';
+  function ChooseGroup(groupId){
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({groupId})
+    };
+    fetch('http://localhost:5000/Message/GetMessage', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+              // setGroup(groupId)
+              // setUsers(data.users)
+              // setMessages(data.messages)
+              setInfoPage({
+                users : data.users,
+                group: groupId,
+                messages: data.messages
+              })
+        });
+  }
 
-
-//   useEffect(() => {
-//     const { name, room } = queryString.parse(location.search);
-
-//     socket = io(ENDPOINT);
-
-//     setRoom(room);
-//     setName(name)
-
-//     socket.emit('join', { name, room }, (error) => {
-//       if(error) {
-//         alert(error);
-//       }
-//     });
-//   }, [ENDPOINT, location.search]);
-  
-//   useEffect(() => {
-//     socket.on('message', message => {
-//       setMessages(msgs => [ ...msgs, message ]);
-//     });
-    
-//     socket.on("roomData", ({ users }) => {
-//       setUsers(users);
-//     });
-// }, []);
-
-//   const sendMessage = (event) => {
-//     console.log(event);
-//     event.preventDefault();
-
-//     if(message) {
-//       socket.emit('sendMessage', message, () => setMessage(''));
-//     }
-//   }
-// cái coponent list tin nhắn đâu
-// cần thì mình truyền qua = props thoi, t thấy có cái global state bây tôi view ra là thành công rồi =)) k có time tìm chi tiết , ok 
-    function ChooseGroup(groupId){
-        const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({groupId})
-      };
-      fetch('http://localhost:5000/Message/GetMessage', requestOptions)
-          .then(response => response.json())
-          .then(data => {
-                setUsers(data.users)
-                setMessages(data.messages)
-                console.log(data)
-          });
-    }
-  
+  function AddMessage(msg){
+      // console.log(infoPage)
+      console.log(msg)
+      setInfoPage({...infoPage,messages:[...infoPage.messages,msg]})
+  }
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <SideLeft user = {user.Id} choosegroup = {(value)=> ChooseGroup(value)} />
-        <Messages messages={messages} userId={user.Id}/>
-        <SideRight users = {users}/>
+      infoPage.group==0?(
+        <div className="container-fluid">
+        <div className="row">
+          <SideLeft user = {user.Id} choosegroup = {(value)=> ChooseGroup(value)} />
+        </div>
       </div>
-    </div>
+      ):(
+        <div className="container-fluid">
+          <div className="row">
+            <SideLeft user = {user.Id} choosegroup = {(value)=> ChooseGroup(value)} />
+            <Messages addmsg = {(msg)=>{AddMessage(msg)}} group={infoPage.group} messages={infoPage.messages} userId={user.Id}/>
+            <SideRight users = {infoPage.users}/>
+          </div>
+        </div>
+      )
+      
   );
 }

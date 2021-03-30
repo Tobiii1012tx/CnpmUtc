@@ -29,12 +29,10 @@ module.exports.Delete = async function(req, res) {
 }
 
 module.exports.Login = async function(req, res) {
-    console.log(res.body)
     let user = req.body;
     let email = user.Email;
     let password = user.Password;
     let sql = `select * from users where Email=N'${email}' && Password='${password}'`;
     var result = await db.promise().query(sql);
-    console.log(result[0]);
     res.status(200).send(result[0]);
 }

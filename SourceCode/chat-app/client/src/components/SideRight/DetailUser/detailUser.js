@@ -1,6 +1,5 @@
 import React from "react";
 export const DetailUser = (props) =>{
-    console.log(props.user)
     return(
         <div className="user-detail p-1">
             <div className="name">

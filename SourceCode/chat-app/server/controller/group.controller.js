@@ -21,9 +21,7 @@ module.exports.Index = async function(req,res) {
     sql = ` Select Group.Id,Group.Name from GroupUser
             Inner join ${GROUP}  on GroupUser.GroupId = Group.Id
             where GroupUser.UserId = ${userId}`;
-    console.log(sql)
     let results = await db.promise().query(sql);
-    console.log(results[0])
     res.status(200).send(results[0]);
 }
 

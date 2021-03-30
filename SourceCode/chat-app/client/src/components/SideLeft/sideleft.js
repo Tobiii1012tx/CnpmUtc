@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {SingleGroup} from "./SingleGroup/singlegroup"
+
 export const SideLeft = (props) => {
     const [groups, SetGroup] = useState([]);
     let Id = props.user;
@@ -48,7 +49,7 @@ export const SideLeft = (props) => {
                 <div className="list-group">
                     {groups.map((group, i) => 
                     <div key={i}>
-                        <SingleGroup group={group} choosegroup={(value)=>ChooseGroup(value)}/>
+                        <SingleGroup userId = {Id} group={group} choosegroup={(value)=>ChooseGroup(value)}/>
                     </div>)}
                 </div>
             </div>

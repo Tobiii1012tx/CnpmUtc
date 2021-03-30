@@ -65,11 +65,18 @@ html{
 
 .main .main-bottom{
     height:40px;
+    position: relative;
 }
 .main .main-bottom input{
     height:40px !important;
 }
-
+.sendButton{
+    position:absolute;
+    top: 0px;
+    right: 0px;
+    height:100%;
+    color:#3578E5;
+}
 .left{
     height:100vh;
     padding:0px;
