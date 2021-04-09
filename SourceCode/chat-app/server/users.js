@@ -2,22 +2,18 @@ const users = [];
 
 const addUser = ({ id, room,socketId }) => {
     room = room.trim();
-    const existingUser = users.filter((user) =>user.id === id);
+    const existingUser = users.filter((user) =>user.id === id && user.room === room);
     // nếu không có trả về undefine
     // chưa có 
     if (existingUser.length == 0)
     {
         const user = { id, room,socketId };
         users.push(user);
-        return [];
+        return true;
     }
     // có
     else{
-        let index = users.findIndex((user) => user.room === room && user.id === id);
-        users.splice(index, 1)[0];
-        const user = { id, room,socketId };
-        users.push(user);
-        return existingUser;
+        return false;
     }
 }
 

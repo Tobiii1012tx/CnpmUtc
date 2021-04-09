@@ -29,13 +29,15 @@ module.exports.Index = async function(req,res) {
 // send object group{db}
 module.exports.AddOrUpdate = async function(req, res) {
     let group = req.body;
+    console.log(group)
     if (group != undefined) {
         let sql = ``;
         if (group.Id == 0) {
-            sql = `insert into ` +  GroupName  + `(Code, Name, OwnerId, CreateDate, Status) value('${ group.Code }', N'${ group.Name }', ${ group.OwnerId }, '${ new Date().toJSON().slice(0, 10) }', ${ true })`;
+            sql = `insert into ` +  GroupName  + `(Name, OwnerId, CreateDate, Status) value(N'${ group.Name }', ${ group.OwnerId }, '${ new Date().toJSON().slice(0, 10) }', ${ true })`;
             var _ = await db.promise().query(sql)
             let result= await  AddUserToGroup("`Group`",group.OwnerId,res);
-            res.send(result);
+            let response = await db.promise().query('select  Id,Name from  `Group` order by Id desc limit 1');
+            res.send(response[0]);
         } 
         else {
             sql = `update ` + `${ GroupName }` + `set Code = '${group.Code}', Name = N'${group.Name}', Status = ${ group.Status } where Id = ${ group.Id }`;
@@ -80,4 +82,12 @@ module.exports.Delete = function(req, res) {
     } else {
         res.status(200).send(false)
     }
+}
+
+module.exports.GetGroupById = async function(GroupId) {
+    let GROUP = '`Group`';
+    let sql = ``;
+    sql = `select * from ${GROUP} where Id = ${GroupId} limit 1`;
+    let results = await db.promise().query(sql);
+    return results[0];
 }

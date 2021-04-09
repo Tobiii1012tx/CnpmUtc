@@ -14,11 +14,13 @@ html{
     border-right: 1px solid #ccc;
 }
 .list-group .active{
-    background:#ccc;
+    background:rgb(235, 235, 235);
 }
-
+.group-item{
+    transition: 0.15s ease-in;
+}
 .group-item:hover{
-  background:#ccc;
+  background:rgb(235, 235, 235);
 }
 .action-item{
     margin-top:5px;
@@ -32,40 +34,51 @@ html{
 
 .main .main-header{
     height: 60px;
-    box-shadow: 0 4px 2px -2px #ccc;
+    box-shadow: 0 4px 40px -2px #ccc;
+}
+
+.main .main-content .content {
+    max-width: 80%;
+}
+.main .main-content .description{
+    font-size:10px !important;
+    margin-bottom:3px !important;
 }
 
 .main .main-content .my-message .content .message{
     background:#3578E5;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-bottom:0px !important;
+    word-wrap: break-word;
 }
 
-.main .main-content .my-message .content p.message::selection{
+.main .main-content .my-message .content .message::selection{
     background:#ccc;
 }
 
-.main .main-content .my-message .content p.description{
+.main .main-content .my-message .content .description{
     text-align: end;
     padding:0px;
-    margin:0px;
+    font-size: 14px;
 }
 
-.main .main-content .other-message .content p.message{
-    background:#ccc;
-    border-radius: 5px;
+.main .main-content .other-message .content .message{
+    background:#e4e6eb;
+    border-radius: 10px;
     margin-bottom:0px !important;
+    word-wrap: break-word;
 }
 
-.main .main-content .other-message .content p.description{
+.main .main-content .other-message .content .description{
     text-align: start;
     padding:0px;
-    margin:0px;
+    font-size: 14px;
 }
 
 .main .main-bottom{
     height:40px;
     position: relative;
+    box-shadow: 0 4px 40px -2px #ccc;
 }
 .main .main-bottom input{
     height:40px !important;
@@ -76,21 +89,24 @@ html{
     right: 0px;
     height:100%;
     color:#3578E5;
+    background-color: transparent !important;
 }
 .left{
     height:100vh;
     padding:0px;
 }
 .left .left-header{
-    min-height:90px;
-    margin-bottom:10px;
     border-bottom: 1px solid #ccc;
 }
+.left-header-title{
+    min-height: 60px;
+}
 .left .left-main{
-    height: calc(100% - 100px);
+    /* height: calc(100% - 100px); */
+    max-height: calc(100vh - 100px);
+    height:calc(100vh - 95.6px);
     overflow-y: scroll;
 }
-
 
 .right{
     height:100vh;
@@ -99,6 +115,7 @@ html{
 .right .right-header{
     height:60px;
     box-shadow: 0 4px 2px -2px #ccc;
+    background-color: #fff;
 }
 .right .right-header .title h5{
     line-height:60px;
@@ -116,11 +133,18 @@ html{
     color:#fff;
 }
 .user-detail{
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    transition:0.15s ease-in;
+}
+.user-detail:hover{
+    background:rgb(235, 235, 235);
 }
 
-.user-detail:hover{
-    background :#ccc;
+.user-detail span{
+    position: absolute;
+    top: 40%;
+    right:10px;
 }
 
 /* Customer scroll */
@@ -131,7 +155,7 @@ html{
   
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: #fff; 
   }
    
   /* Handle */

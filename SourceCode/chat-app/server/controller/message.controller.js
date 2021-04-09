@@ -17,3 +17,17 @@ module.exports.GetMessage = async function(req, res) {
     };
     res.status(200).send(value);
 }
+
+
+module.exports.SaveMessage = async function(Message,UserId,GroupId){
+    let sql = `Insert into GroupUserMessage(GroupId,UserId,Message,ForUserId,Status) values(${GroupId},${UserId},N'${Message}',0,0)`;
+    let query = await db.promise().query(sql);
+    let check = query[0]["affectedRows"];
+    if(check==1){
+        sql = 'select * from Users where Id = '+UserId;
+        return await db.promise().query(sql);
+    }
+    else{
+        return false;
+    }
+}

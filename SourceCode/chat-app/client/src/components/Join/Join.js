@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
-import {Redirect } from "react-router-dom";
+// import {Redirect } from "react-router-dom";
 
 import './Join.css';
 
 export const Join = (props) => {
   const [email, setName] = useState('');
   const [password, setRoom] = useState('');
-
+  const ENDPOINT = 'localhost:5000'
   function componentDidMount(){
-    alert("ok")
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ Email : email, Password : password})
     };
-    fetch('http://localhost:5000/User/Login', requestOptions)
+    fetch('http://'+ENDPOINT+'/User/Login', requestOptions)
         .then(response => response.json())
         .then(data => {
           // data là result trả về, thế cái trên alf cái call server (required đấy)
           if(data.length > 0) {
-              console.log(data)
               props.history.push({pathname:"/chat",state:{user : data}});
           }
         });

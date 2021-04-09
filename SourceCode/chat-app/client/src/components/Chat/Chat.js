@@ -1,25 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {useLocation } from 'react-router-dom';
 
 import {Messages} from '../Messages/Messages';
 import {SideLeft} from '../SideLeft/sideleft';
 import {SideRight} from '../SideRight/sideright';
-// import { UserProvider } from '../Common/socket'
-
-// import io from "socket.io-client";
-
+import {useSelector} from 'react-redux';
 import './Chat.css';
 // let socket;
 export const Chat = () => {
   const location = useLocation();
-  let u = location.state.user[0];
-  const [user, setUser] = useState(u);
+  let user = location.state.user[0];
+  let socket = useSelector(state=>state.socket)
+  // const [user, setUser] = useState(u);
   const [infoPage,setInfoPage] = useState({
     users : [],
     group : 0,
     messages : []
   })
-
   function ChooseGroup(groupId){
       const requestOptions = {
         method: 'POST',
@@ -42,25 +39,40 @@ export const Chat = () => {
 
   function AddMessage(msg){
       // console.log(infoPage)
-      console.log(msg)
       setInfoPage({...infoPage,messages:[...infoPage.messages,msg]})
   }
 
+  socket.on('ResponseAddMember',data =>{
+      if (data== false)
+      {
+          alert("Email không tồn tại trong ứng dụng hoặc người dùng đã có trong nhóm")
+      }
+      else {
+        alert("Đã thêm thành viên");
+        setInfoPage({...infoPage,users:[...infoPage.users,data]})
+      }
+  })
+
+  socket.on('AddToGroup',data=>{
+        setInfoPage({...infoPage,users:[...infoPage.users,data]})
+  })
+
   return (
-      infoPage.group==0?(
-        <div className="container-fluid">
-        <div className="row">
-          <SideLeft user = {user.Id} choosegroup = {(value)=> ChooseGroup(value)} />
-        </div>
-      </div>
-      ):(
-        <div className="container-fluid">
-          <div className="row">
-            <SideLeft user = {user.Id} choosegroup = {(value)=> ChooseGroup(value)} />
-            <Messages addmsg = {(msg)=>{AddMessage(msg)}} group={infoPage.group} messages={infoPage.messages} userId={user.Id}/>
-            <SideRight users = {infoPage.users}/>
+      infoPage.group===0?(
+          <div className="container-fluid">
+            <div className="row">
+              <SideLeft user = {user.Id} choosegroup = {(value)=> ChooseGroup(value)} />
+            </div>
           </div>
-        </div>
+      ):(
+          <div className="container-fluid">
+                  <div className="row">
+                    <SideLeft user = {user.Id} choosegroup = {(value)=> ChooseGroup(value)} />
+                    <Messages addmsg = {(msg)=>{AddMessage(msg)}} group={infoPage.group} messages={infoPage.messages} userId={user.Id}/>
+                    <SideRight userNow={user} users = {infoPage.users} group={infoPage.group}/>
+                  </div>
+          </div>
+     
       )
       
   );

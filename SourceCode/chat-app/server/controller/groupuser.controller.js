@@ -66,5 +66,40 @@ module.exports.SetRoleUser = async function(req,res){
 
 
 
-////////////////////////////////
-// Chỉnh sửa biệt danh trong nhóm
+module.exports.AddMember =async function(user) {
+    let getUser = await FindUser(user.Email);
+    if (getUser.length > 0) {
+        if (await CheckUser(getUser[0]["Id"],user.GroupId)) {
+            let UserId = getUser[0]["Id"];
+            let sql =  `insert into groupuser (GroupId,UserId,Name,RoleId,CreateDate,Status) 
+                        value(${user.GroupId},${UserId},'Thành viên',2,'${new Date().toJSON().slice(0, 10) }',${true})`;
+                    var query = await db.promise().query(sql);
+                    return getUser[0]; 
+        }
+        else{
+            return false;
+        }
+    }
+    else {
+        return false;   
+    }
+}
+
+async function FindUser(email) {
+        sql =  `select * from Users where Email ='${email}'`;
+        var query = await db.promise().query(sql);
+        let check = query[0];   
+        return (check);
+}
+async function CheckUser(userId,GroupId){
+    sql =  `select * from GroupUser where UserId =${userId} and GroupId=${GroupId}`;
+    var query = await db.promise().query(sql);
+    let check = query[0];  
+    return (check.length==0);
+}
+
+
+module.exports.Leave =async function(user) {
+    let query = await  db.promise().query(`delete From GroupUser Where UserId = ${user.UserId} and GroupId = ${user.GroupId}`);
+    return await db.promise().query(`select * from appchat.group where Id = ${user.GroupId} limit 1`);
+}
